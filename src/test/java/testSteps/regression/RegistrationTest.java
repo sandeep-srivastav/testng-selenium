@@ -1,7 +1,6 @@
-package testSteps;
+package testSteps.regression;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
@@ -15,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PHPTravelRegressionTest extends ExcelOperation  {
+public class RegisterTest extends ExcelOperation  {
 
     WebDriver globalDriver;
     BrowserFactory browserFactory = new BrowserFactory();
@@ -32,14 +31,14 @@ public class PHPTravelRegressionTest extends ExcelOperation  {
     }
 
     @Test(priority = 1)
-    public void checkRegistration() throws IOException {
+    public void verifyWebPage(){
+
+    }
+
+
+    @Test(priority = 2)
+    public void checkRegistration() throws IOException, InterruptedException {
         RegistrationPage registrationPage = new RegistrationPage(globalDriver);
-
-/*        registrationPage.enterFirstName(readExcel("TestData.xlsx", "TestOne",2, 3));
-        registrationPage.enterLastName(readExcel("TestData.xlsx", "TestOne",2, 4));
-        registrationPage.enterEmail(readExcel("TestData.xlsx", "TestOne",2, 5));*/
-        //registrationPage
-
         testDataMap = new HashMap<>();
         testDataMap.putAll(readExcel(Constants.workbookName, Constants.sheetName, Constants.testKey));
         String username = testDataMap.get("Username");
@@ -47,8 +46,7 @@ public class PHPTravelRegressionTest extends ExcelOperation  {
         registrationPage.enterFirstName(testDataMap.get("First Name"));
         registrationPage.enterLastName(testDataMap.get("Last Name"));
         registrationPage.enterEmail(testDataMap.get("Email"));
-        wait.holdTheDriver(globalDriver, 40);
-        System.out.println("Yha tak aa gaya hu !!!");
+        wait.pauseExecution(globalDriver, 40);
     }
 
     @AfterTest
@@ -62,7 +60,8 @@ public class PHPTravelRegressionTest extends ExcelOperation  {
     }
 
     @Override
-    public ArrayList<HashMap<String, String>> getDataFromExcel(String excelFileName, String sheetName, String Key) throws Exception {
+    public ArrayList<HashMap<String, String>> getDataFromExcel(String excelFileName,
+                                                               String sheetName, String Key) throws Exception {
         return null;
     }
 }
